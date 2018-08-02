@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::CampaignTest < Test::Unit::TestCase
+class GetResponse::CampaignTest < Minitest::Spec
 
   def setup
     @gr_connection = GetResponse::Connection.new("my_secret_api_key")
@@ -63,13 +63,13 @@ class GetResponse::CampaignTest < Test::Unit::TestCase
     postal_address = @campaign.postal_address
 
     assert_kind_of Hash, postal_address
-    assert_not_nil postal_address["name"]
-    assert_not_nil postal_address["address"]
-    assert_not_nil postal_address["city"]
-    assert_not_nil postal_address["state"]
-    assert_not_nil postal_address["zip"]
-    assert_not_nil postal_address["country"]
-    assert_not_nil postal_address["design"]
+    refute_nil postal_address["name"]
+    refute_nil postal_address["address"]
+    refute_nil postal_address["city"]
+    refute_nil postal_address["state"]
+    refute_nil postal_address["zip"]
+    refute_nil postal_address["country"]
+    refute_nil postal_address["design"]
   end
 
 

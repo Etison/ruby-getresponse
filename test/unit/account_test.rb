@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class AccountTest < Test::Unit::TestCase
+class AccountTest < Minitest::Spec
 
   def test_initialize
     account = GetResponse::Account.new({"login" => "test", "from_name" => "From test",

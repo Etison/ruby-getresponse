@@ -1,9 +1,9 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class ContactTest < Test::Unit::TestCase
+
+class ContactTest < Minitest::Spec
 
   include RR::Adapters::TestUnit
-
 
   def setup
     @gr_connection = GetResponse::Connection.new("my_secret_api_key")
@@ -56,7 +56,7 @@ class ContactTest < Test::Unit::TestCase
     satisfy_mocks
     contact = new_contact
 
-    exception = assert_raise(GetResponse::GetResponseError) { contact.destroy }
+    exception = assert_raises(GetResponse::GetResponseError) { contact.destroy }
     assert_equal "Can't delete contact without id", exception.message
   end
 
@@ -65,7 +65,7 @@ class ContactTest < Test::Unit::TestCase
     mock(@mocked_response).body { destroy_missing_contact_mock }
     contact =  new_contact("id" => "45bgT")
 
-    exception = assert_raise(GetResponse::GetResponseError) { contact.destroy }
+    exception = assert_raises(GetResponse::GetResponseError) { contact.destroy }
     assert_equal "Missing contact", exception.message
   end
 
@@ -83,7 +83,7 @@ class ContactTest < Test::Unit::TestCase
     mock(@mocked_response).body { add_contact_invalid_email_syntax }
     contact = new_contact("id" => "45bgT")
 
-    exception = assert_raise(GetResponse::GetResponseError) { contact.update("email" => "sebastian//host.xyz") }
+    exception = assert_raises(GetResponse::GetResponseError) { contact.update("email" => "sebastian//host.xyz") }
     assert_equal "Invalid email syntax", exception.message
   end
 
@@ -101,7 +101,7 @@ class ContactTest < Test::Unit::TestCase
     mock(@mocked_response).body { move_contact_fail }
     contact = new_contact("id" => "45bgT")
 
-    exception = assert_raise(GetResponse::GetResponseError) { contact.move("blah") }
+    exception = assert_raises(GetResponse::GetResponseError) { contact.move("blah") }
     assert_equal "Missing campaign", exception.message
   end
 
@@ -136,7 +136,7 @@ class ContactTest < Test::Unit::TestCase
     mock(@mocked_response).body { set_cycle_fail_mock }
     contact = new_contact("id" => "45bgT")
 
-    exception = assert_raise(GetResponse::GetResponseError) { contact.set_cycle("6") }
+    exception = assert_raises(GetResponse::GetResponseError) { contact.set_cycle("6") }
     assert_equal "Missing contact", exception.message
   end
 
@@ -164,7 +164,7 @@ class ContactTest < Test::Unit::TestCase
     mock(@mocked_response).body { set_contact_name_exception_response }
     contact = new_contact
 
-    exception = assert_raise(GetResponse::GetResponseError) { contact.name = "My new name" }
+    exception = assert_raises(GetResponse::GetResponseError) { contact.name = "My new name" }
     assert_equal "Missing contact", exception.message
   end
 

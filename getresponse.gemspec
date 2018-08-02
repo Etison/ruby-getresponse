@@ -8,9 +8,14 @@ Gem::Specification.new do |s|
   s.description   = "With this gem you can manage your subscribers, campaigns, messages etc."
   s.version       = "0.6"
 
-  s.add_dependency "json", "~> 1.4"
-  s.add_dependency "json_pure", "~>1.4"
-  s.add_development_dependency "rr", "~>1.0"
+  s.add_dependency "json", '~> 2.1'
+  s.add_dependency "json_pure", '~> 2.1'
+  s.add_development_dependency "rr"
+  s.add_development_dependency "bundler", "~> 1.7"
+  s.add_development_dependency "rake", "~> 10.0"
+  s.add_development_dependency "minitest-line"
+  s.add_development_dependency "rdoc"
+
   s.required_rubygems_version = ">= 1.3.5"
 
   s.files         = Dir.glob("lib/**/*") + %w(README.rdoc)

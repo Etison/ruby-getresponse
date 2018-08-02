@@ -1,18 +1,13 @@
 # encoding: utf-8
-require "test/unit"
 require File.join(File.dirname(__FILE__), "../lib/get_response")
 require 'rr'
 
 # Test helper methods
+require "minitest/autorun"
 
-
-class Test::Unit::TestCase
-
-  include RR::Adapters::TestUnit
-
+Minitest::Spec.class_eval do
 
   protected
-
 
   def get_campaigns_resp
     {
@@ -34,7 +29,6 @@ class Test::Unit::TestCase
       }
     }.to_json
   end
-
 
   def get_contacts_resp
     { "result" => {

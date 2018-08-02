@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::ConfirmationSubjectProxyTest < Test::Unit::TestCase
+class GetResponse::ConfirmationSubjectProxyTest < Minitest::Spec
 
   include GetResponse::Conditions
 
@@ -50,7 +50,7 @@ class GetResponse::ConfirmationSubjectProxyTest < Test::Unit::TestCase
 
 
   def test_parse_condition_with_some_bad_operator
-    exception = assert_raise(GetResponse::GetResponseError) { parse_condition("BAD_OPERATOR", "value") }
+    exception = assert_raises(GetResponse::GetResponseError) { parse_condition("BAD_OPERATOR", "value") }
     assert_equal "Bad operator: BAD_OPERATOR", exception.message
   end
 

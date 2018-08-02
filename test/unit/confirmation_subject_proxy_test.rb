@@ -1,7 +1,7 @@
 # encoding: utf-8
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::ConfirmationSubjectProxyTest < Test::Unit::TestCase
+class GetResponse::ConfirmationSubjectProxyTest < Minitest::Spec
 
   def setup
     @connection = GetResponse::Connection.new("my_test_api_key")
@@ -42,7 +42,7 @@ class GetResponse::ConfirmationSubjectProxyTest < Test::Unit::TestCase
     params = {"confirmation_subject" => "bad_id"}
     mock(@connection).send_request("get_confirmation_subject", params) { {"result" => {}, "error" => nil} }
 
-    exception = assert_raise(GetResponse::GetResponseError) { @proxy.find("bad_id") }
+    exception = assert_raises(GetResponse::GetResponseError) { @proxy.find("bad_id") }
     assert_equal "Confirmation subject with id 'bad_id' not found.", exception.message
   end
 

@@ -1,7 +1,7 @@
 # encoding: utf-8
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::ConfirmationBodyProxyTest < Test::Unit::TestCase
+class GetResponse::ConfirmationBodyProxyTest < Minitest::Spec
 
   def setup
     @connection = GetResponse::Connection.new("my_test_api_key")
@@ -44,7 +44,7 @@ class GetResponse::ConfirmationBodyProxyTest < Test::Unit::TestCase
       {"result"=>{}, "error"=>nil}
     end
 
-    exception = assert_raise(GetResponse::GetResponseError) { @proxy.find("bad_id") }
+    exception = assert_raises(GetResponse::GetResponseError) { @proxy.find("bad_id") }
     assert_equal "Confirmation body with id 'bad_id' not found.", exception.message
   end
 

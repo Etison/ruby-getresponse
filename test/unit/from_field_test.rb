@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class FromFieldTest < Test::Unit::TestCase
+class FromFieldTest < Minitest::Spec
 
   def test_initialize
     @from_field = GetResponse::FromField.new("name" => "text", "email" => "test@email.cc",
