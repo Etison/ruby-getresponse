@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::FollowUpTest < Test::Unit::TestCase
+class GetResponse::FollowUpTest < Minitest::Spec
 
   def setup
     @connection = GetResponse::Connection.new("API_KEY")
@@ -33,8 +33,8 @@ class GetResponse::FollowUpTest < Test::Unit::TestCase
     params = {:message => @follow_up.id, :day_of_cycle => new_day_of_cycle}
     exception = GetResponse::GetResponseError.new "Day of cycle already used"
     mock(@connection).send_request("set_follow_up_cycle", params) { raise exception }
-    
-    ex = assert_raise(GetResponse::GetResponseError) { @follow_up.day_of_cycle = new_day_of_cycle }
+
+    ex = assert_raises(GetResponse::GetResponseError) { @follow_up.day_of_cycle = new_day_of_cycle }
     assert_equal "Day of cycle already used", ex.message
   end
 

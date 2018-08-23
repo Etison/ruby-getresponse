@@ -1,7 +1,7 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 require 'date'
 
-class GetResponse::ContactProxyTest < Test::Unit::TestCase
+class GetResponse::ContactProxyTest < Minitest::Spec
 
 
   def setup
@@ -48,7 +48,7 @@ class GetResponse::ContactProxyTest < Test::Unit::TestCase
     fail_exception = GetResponse::GetResponseError.new("Contact already queued for target campaign")
     mock(@connection).send_request(:add_contact, attrs_sent_to_service) { raise fail_exception }
 
-    assert_raise(GetResponse::GetResponseError) { @proxy.create(new_contact_attrs) }
+    assert_raises(GetResponse::GetResponseError) { @proxy.create(new_contact_attrs) }
   end
 
 

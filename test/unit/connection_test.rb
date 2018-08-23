@@ -1,8 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::ConnectionTest < Test::Unit::TestCase
-
-  include RR::Adapters::TestUnit
+class GetResponse::ConnectionTest < Minitest::Spec
 
   def setup
     @gr_connection = GetResponse::Connection.new("my_secret_api_key")
@@ -23,7 +21,7 @@ class GetResponse::ConnectionTest < Test::Unit::TestCase
   def test_ping_with_bad_api_key
     mock(@mocked_response).code { "403" }
 
-    exception = assert_raise(GetResponse::GetResponseError) { @gr_connection.ping }
+    exception = assert_raises(GetResponse::GetResponseError) { @gr_connection.ping }
     assert_equal 'API key verification failed', exception.message
   end
 

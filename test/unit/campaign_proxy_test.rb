@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::CampaignProxyTest < Test::Unit::TestCase
+class GetResponse::CampaignProxyTest < Minitest::Spec
 
   def setup
     @connection = GetResponse::Connection.new("my_test_api_key")
@@ -40,7 +40,7 @@ class GetResponse::CampaignProxyTest < Test::Unit::TestCase
     result = @proxy.create(new_campaign_params)
 
     assert_kind_of GetResponse::Campaign, result
-    assert_not_nil result.id
+    refute_nil result.id
   end
 
 

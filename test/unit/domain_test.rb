@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class DomainTest < Test::Unit::TestCase
+class DomainTest < Minitest::Spec
 
   def test_instance
     @domain = GetResponse::Domain.new("id" => "234", "domain" => "newsletter.company.com",

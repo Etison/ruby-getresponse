@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class GetResponse::MessageProxyTest < Test::Unit::TestCase
+class GetResponse::MessageProxyTest < Minitest::Spec
 
   def setup
     @connection = GetResponse::Connection.new("my_api_key")

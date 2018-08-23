@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../test_helper'))
+require 'test_helper'
 
-class FromFieldsProxyTest < Test::Unit::TestCase
+class FromFieldsProxyTest < Minitest::Spec
 
   def setup
     @connection = GetResponse::Connection.new("API_KEY")
@@ -32,7 +32,7 @@ class FromFieldsProxyTest < Test::Unit::TestCase
       raise GetResponse::GetResponseError.new(add_account_from_field_fail["error"])
     end
 
-    assert_raise(GetResponse::GetResponseError) { @proxy.create(new_from_field_attrs) }
+    assert_raises(GetResponse::GetResponseError) { @proxy.create(new_from_field_attrs) }
   end
 
 
@@ -48,7 +48,7 @@ class FromFieldsProxyTest < Test::Unit::TestCase
   def test_find_by_id_with_bad_id
     mock(@connection).send_request("get_account_from_field", {"account_from_field" => "bad_id"}) { {"result"=>{}, "error"=>nil} }
 
-    exception = assert_raise(GetResponse::GetResponseError) { @proxy.find("bad_id") }
+    exception = assert_raises(GetResponse::GetResponseError) { @proxy.find("bad_id") }
     assert_equal "Form field with id 'bad_id' not found.", exception.message
   end
 
