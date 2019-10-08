@@ -6,7 +6,7 @@ class GetResponse::ConnectionTest < Minitest::Spec
     @gr_connection = GetResponse::Connection.new("my_secret_api_key")
     @mocked_response = mock
     mock(@mocked_response).code.any_times { 200 }
-    mock(Net::HTTP).start("api2.getresponse.com", 80).any_times { @mocked_response }
+    mock(Net::HTTPS).start("api.getresponse.com/v3", 443).any_times { @mocked_response }
   end
 
 

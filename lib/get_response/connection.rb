@@ -4,7 +4,7 @@ module GetResponse
 
   # Simple class that simulates connection to service
   class Connection
-    API_URI = "http://api2.getresponse.com/"
+    API_URI = "https://api.getresponse.com/v3/"
 
     attr_reader :api_key
 
