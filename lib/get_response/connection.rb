@@ -86,15 +86,23 @@ module GetResponse
       }.to_json
 
       uri = URI.parse(self.class::API_URI)
-      resp = Net::HTTP.start(uri.host, uri.port) do |conn|
+
+      if use_proxy?
+        proxy_uri = URI.parse(ENV.fetch('HTTP_PROXY'))
+        proxy_host = proxy_uri.host
+        proxy_port = proxy_uri.port
+      else
+        proxy_host = nil
+        proxy_port = nil
+      end
+
+      resp = Net::HTTP.start(uri.host, uri.port, proxy_host, proxy_port) do |conn|
         conn.post(uri.path, request_params)
       end
       raise GetResponseError.new("API key verification failed") if resp.code.to_i == 403
       raise GetResponseError.new("204 No content response received which signifies interpreting request as notification") if resp.code.to_i == 204
       response = JSON.parse(resp.body)
-      if response["error"]
-        raise GetResponse::GetResponseError.new(response["error"])
-      end
+      raise GetResponse::GetResponseError.new(response["error"]) if response["error"]
       response
     end
 
@@ -109,6 +117,9 @@ module GetResponse
 
     protected
 
+    def use_proxy?
+      !ENV.fetch('HTTP_PROXY', nil).nil?
+    end
 
     def build_conditions(conditions)
       conditions.inject({}) do |hash, cond|

@@ -1,15 +1,12 @@
 require 'test_helper'
 
-
 class ContactTest < Minitest::Spec
-
-  include RR::Adapters::TestUnit
 
   def setup
     @gr_connection = GetResponse::Connection.new("my_secret_api_key")
     @mocked_response = mock
     mock(@mocked_response).code.any_times { 200 }
-    mock(Net::HTTP).start("api2.getresponse.com", 80).any_times { @mocked_response }
+    mock(Net::HTTP).start("api2.getresponse.com", 80, nil, nil).any_times { @mocked_response }
   end
 
 
@@ -255,7 +252,7 @@ class ContactTest < Minitest::Spec
 
 
   def satisfy_mocks
-    Net::HTTP.start("api2.getresponse.com", 80)
+    Net::HTTP.start("api2.getresponse.com", 80, nil, nil)
   end
 
 
