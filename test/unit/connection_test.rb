@@ -3,10 +3,21 @@ require 'test_helper'
 class GetResponse::ConnectionTest < Minitest::Spec
 
   def setup
+    ENV['HTTP_PROXY'] = nil
     @gr_connection = GetResponse::Connection.new("my_secret_api_key")
     @mocked_response = mock
     mock(@mocked_response).code.any_times { 200 }
     mock(Net::HTTP).start("api2.getresponse.com", 80, nil, nil).any_times { @mocked_response }
+  end
+
+  def test_ping_with_http_proxy_enabled
+    ENV['HTTP_PROXY'] = "http://1.1.1.1:123"
+    mock(Net::HTTP).start("api2.getresponse.com", 80, '1.1.1.1', 123).any_times { @mocked_response }
+
+    mock(@mocked_response).body { "{\"error\":null,\"result\":{\"ping\":\"pong\"}}" }
+
+    response = @gr_connection.ping
+    assert_equal true, response
   end
 
 
