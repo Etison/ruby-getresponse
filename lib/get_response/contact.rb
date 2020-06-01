@@ -19,6 +19,7 @@ module GetResponse
       @reason = params["reason"]
       @connection = connection
       @duplicated = false
+      @lazy_save = false
     end
 
 

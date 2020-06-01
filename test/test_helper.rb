@@ -1,9 +1,9 @@
 # encoding: utf-8
 require File.join(File.dirname(__FILE__), "../lib/get_response")
-require 'rr'
 
 # Test helper methods
 require "minitest/autorun"
+require 'rr'
 
 Minitest::Spec.class_eval do
 
